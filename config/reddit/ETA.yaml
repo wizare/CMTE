@@ -1,0 +1,73 @@
+# Data
+data_dir: reddit_data
+data_prefix: demo
+min_freq: 1
+max_vocab_size: 30000
+save_dir_prefix: reddit_ETA
+data_tag: tg
+
+min_len: 1
+max_len: 30
+embed_file: emb/glove.6B.300d.txt
+use_embed: True
+share_vocab: False
+rebuild: True
+# topic_words_num: 50
+save_mode: 2
+
+# Dynamic Import
+corpus_module_path: source.inputters.corpus
+corpus_class_name: TopicGuide2Corpus
+model_module_path: source.models.ntm_tg_seq2seq
+model_class_name: Seq2Seq
+
+# Topic
+topic_prepare_matrix: reddit_data/topic_distribution.matrix.npy
+topic_k: 50 # only topK topic is used
+topic_num: 42
+topic_vocab_file: reddit_data/voca.txt
+
+without_topic_project: False
+use_ntm: True
+# Network
+embed_size: 300
+hidden_size: 800
+num_layers: 1
+dropout: 0.2
+bidirectional: True
+tie_embedding: False
+
+attn_mode: mlp  # mlp dot general
+attn_hidden_size: ~
+with_bridge: False
+
+decoder_attention_channels: 'ST'
+
+
+# Training
+num_epochs: 10
+random_seed: ~
+batch_size: 128
+gpu: 0
+log_steps: 128
+valid_steps:  1024
+
+optimizer: Adam
+lr: 0.0001
+grad_clip: 5.0
+
+lr_decay: ~
+weight_control: False
+
+# Testing
+test: False
+ckpt: ~
+
+# Generation
+max_dec_len: 30
+ignore_unk: True
+length_average: True
+gen_file: test.result
+beam_size: 10
+
+
